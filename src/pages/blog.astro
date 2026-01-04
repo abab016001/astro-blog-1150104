@@ -1,0 +1,27 @@
+---
+import { getCollection } from 'astro:content'
+import type { CollectionEntry } from 'astro:content'
+import BaseLayout from '../layouts/BaseLayout.astro'
+
+const pageTitle = '我的部落格'
+const allPosts: CollectionEntry<'blog'>[] = await getCollection('blog')
+---
+
+<BaseLayout pageTitle={pageTitle}>
+  <ul>
+    {
+      allPosts
+        .sort((a, b) => {
+          const b_date = b.data.pubDate.toDateString()
+          const a_date = a.data.pubDate.toDateString()
+          return b_date.localeCompare(a_date)
+        })
+        .map((post) => (
+          <li>
+            <a href={`/posts/${post.id}`}>{post.data.title}</a>
+            <span> - {post.data.pubDate.toLocaleDateString()} </span>
+          </li>
+        ))
+    }
+  </ul>
+</BaseLayout>
