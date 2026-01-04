@@ -42,6 +42,7 @@ const _bodyClass =
       <a href="/">首頁</a>
       <a href="/about">關於我</a>
       <a href="/blog">部落格</a>
+      <a href="/admin" id="navAdminHref">後臺管理</a>
     </nav>
 
     <h1>{pageTitle}</h1>
@@ -52,5 +53,15 @@ const _bodyClass =
       <hr />
       <p>© 2024 我的 Astro 學習筆記</p>
     </footer>
+
+    <script>
+      const navAdminHref = document.getElementById('navAdminHref')
+      navAdminHref!.addEventListener('click', (e) => {
+        e.preventDefault()
+        console.log('點擊 Admin', e)
+        const password = prompt('請輸入密碼')
+        location.href = '/admin?' + `pass=${password}`
+      })
+    </script>
   </body>
 </html>
