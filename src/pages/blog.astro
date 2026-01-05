@@ -1,14 +1,18 @@
 ---
-import { getCollection } from 'astro:content'
-import type { CollectionEntry } from 'astro:content'
+// import { getCollection } from 'astro:content'
+// import type { CollectionEntry } from 'astro:content'
 import BaseLayout from '../layouts/BaseLayout.astro'
+import PostsQuote from '../components/PostsQuote.astro'
 
 const pageTitle = '我的部落格'
-const allPosts: CollectionEntry<'blog'>[] = await getCollection('blog')
+// const allPosts: CollectionEntry<'blog'>[] = await getCollection('blog')
 ---
 
 <BaseLayout pageTitle={pageTitle}>
-  <ul>
+  <PostsQuote server:defer>
+    <p slot="fallback" class="loading">文章列表載入中...</p>
+  </PostsQuote>
+  <!-- <ul>
     {
       allPosts
         .sort((a, b) => {
@@ -23,5 +27,5 @@ const allPosts: CollectionEntry<'blog'>[] = await getCollection('blog')
           </li>
         ))
     }
-  </ul>
+  </ul> -->
 </BaseLayout>

@@ -1,0 +1,25 @@
+---
+import { getCollection } from 'astro:content'
+import type { CollectionEntry } from 'astro:content'
+const posts: CollectionEntry<'blog'>[] = await getCollection('blog')
+
+// 模擬資料庫查詢
+await new Promise((resolve) => setTimeout(resolve, 2000))
+---
+
+<ul>
+  {
+    posts
+      .sort((a, b) => {
+        const a_date = a.data.pubDate.toDateString()
+        const b_date = b.data.pubDate.toDateString()
+        return b_date.localeCompare(a_date)
+      })
+      .map((post) => (
+        <li>
+          <a href={`/posts/${post.id}`}>{post.data.title}</a>
+          <span> - {post.data.pubDate.toLocaleDateString()} </span>
+        </li>
+      ))
+  }
+</ul>
