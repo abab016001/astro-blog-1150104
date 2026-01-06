@@ -10,13 +10,10 @@ await new Promise((resolve) => setTimeout(resolve, 2000))
 <ul>
   {
     posts
-      .sort((a, b) => {
-        const a_date = a.data.pubDate.toDateString()
-        const b_date = b.data.pubDate.toDateString()
-        return b_date.localeCompare(a_date)
-      })
+      .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
       .map((post) => (
         <li>
+          <span>{post.id}</span>
           <a href={`/posts/${post.id}`}>{post.data.title}</a>
           <span> - {post.data.pubDate.toLocaleDateString()} </span>
         </li>
